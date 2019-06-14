@@ -1,0 +1,247 @@
+---
+title: "NBA Player Value"
+author: "Jonathan Bown"
+date: "June 13, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(plyr)
+library(dplyr)
+library(ggplot2)
+#library(lubridate)
+library(xts)
+library(knitr)
+library(cointReg)
+library(car)
+library(xtable)
+library(kableExtra)
+library(here)
+library(stargazer)
+library(readxl)
+library(scales)
+library(here)
+```
+
+
+The goal of this analysis is to better understand the similarities and differences between three metrics: Win Score, Wins Produced, and Win Share in the context of calculating player output or player value. I'm curious how similar or different these metrics are. 
+
+
+Interpretability
+
+```{r read}
+player_data_raw <- read.csv(here('Player_data.txt'), stringsAsFactors=FALSE, header=TRUE)
+team_data <- read.csv(here('Team_data.txt'), stringsAsFactors=FALSE, header=TRUE)
+team_key <- read.csv(here('Team_abbrev.txt'), stringsAsFactors=FALSE, header=TRUE)
+team_cost_data <- read.csv(here('Team_win_cost.txt'), stringsAsFactors=FALSE, header=TRUE)
+player_salary_data <- read.csv(here('Player_sal_data.txt'), stringsAsFactors=FALSE, header=TRUE)
+opp_data <- read.csv(here('Opp_data.txt'), stringsAsFactors=FALSE, header=TRUE)
+player_ws_data_raw <- read.csv(here('Player_ws_data.txt'), stringsAsFactors=FALSE, header=TRUE)
+players_tot <- player_data_raw[which(player_data_raw$Tm == "TOT"),"Player"]
+player_data_clean <- player_data_raw[which(!(player_data_raw$Player %in% players_tot) | player_data_raw$Tm == 'TOT'),]
+player_data_ws_clean <- player_ws_data_raw[which(!(player_data_raw$Player %in% players_tot) | player_data_raw$Tm == 'TOT'),]
+```
+
+#Win Share
+
+Win Share ...
+
+```{r}
+#Calculate win score
+
+
+cols <- c("Player", "WS")
+df <-  player_data_ws_clean[order(-player_data_ws_clean$WS),cols] 
+df <- df[1:20,]
+df$Player <- lapply(df$Player, function(x) {sub("\\\\.*","",x)})
+
+
+kable(x=df, align=c('l','c'), row.names = FALSE, col.names = c('Player', 'Win Share'), caption="\\label{wa_corr}Win Score Top 20")  %>%
+      kable_styling(latex_options = c("striped","hold_position"),
+                    full_width = FALSE,font_size = 12)
+
+```
+
+
+#Win Score
+
+Win score is calculated as
+$$
+\Delta wins = \text{points} + \text{total rebounds} + \text{steals} + \frac{1}{2}(\text{blocked shots} + \text{assists}) - \text{field goal attempts} - turnovers - \frac{1}{2}(\text{free throws} + \text{personal fouls}).
+$$
+As noted in the textbook, this equation rewards players for positive contributions and penalizes them for negative contributions. 
+```{r}
+#Calculate win score
+
+player_data_clean$win_score = player_data_clean$PTS + player_data_clean$TRB + player_data_clean$STL + .5*(player_data_clean$BLK + player_data_clean$AST) - player_data_clean$FGA - player_data_clean$TOV - .5*(player_data_clean$FT + player_data_clean$PF)
+cols <- c("Player", "win_score")
+df <-  player_data_clean[order(-player_data_clean$win_score),cols] 
+df <- df[1:20,]
+df$Player <- lapply(df$Player, function(x) {sub("\\\\.*","",x)})
+
+
+kable(x=df, align=c('l','c'), row.names = FALSE, col.names = c('Player', 'Win Score'), caption="\\label{wa_corr}Win Score Top 20")  %>%
+      kable_styling(latex_options = c("striped","hold_position"),
+                    full_width = FALSE,font_size = 12)
+
+```
+
+
+#Wins Produced
+
+For Wins Produced I am following the formula laid out in The Wages of Wins Journal article titled 'How to calculate Wins Produced'. This article lays out a complicated formula that involves using regression coefficients with variables that are similar to Win Score. But this method makes adjustments for defensive rebounds, assists, position, and league averages. It is pointed out by the article that some of these adjustments don't end up making a large difference because of the robustness of the coefficients and league averages. For simplicity I am excluding the adjustment due to position because I don't have data on the changing positions of each player. 
+
+
+```{r}
+#Step One:
+player_data_part <- player_data_raw[which(!(player_data_raw$Tm == 'TOT')),]
+player_data_tm <- join(player_data_part, team_key, by = "Tm")
+player_data_tm <- join(player_data_tm, opp_data, by = "Team")
+player_data_tm <- join(player_data_tm, team_data, by = "Team")
+
+player_data_tm$OppFTM <- player_data_tm$PF/player_data_tm$TPF*player_data_tm$OFT 
+
+
+
+player_data_tm$PROD <- with(player_data_tm, X3PA*0.064 + X2P*0.032 + FT*0.017 + (FGA-FG)*-0.034 + (FTA - FT)*-0.015 + ORB*0.034 + DRB*0.034 + TOV*-0.034 + STL*0.033 + OppFTM*-0.017 + BLK*0.020)
+player_data_tm$P48 <- (player_data_tm$PROD/player_data_tm$MP)*48
+```
+
+
+
+```{r}
+#Step two:
+#1
+player_data_tm$TDRBPM <- with(player_data_tm, (TDRB-DRB)/(TMP-MP))
+#2
+player_data_tm$DRBL <- player_data_tm$TDRBPM*(-0.504)
+#3
+player_data_tm$VDRB <- player_data_tm$DRBL*(0.034)*player_data_tm$MP  
+#4
+by_team1 <- aggregate(player_data_tm$VDRB, by=list(player_data_tm$Tm), FUN=sum)
+colnames(by_team1) <- c("Tm", "Sum1")
+
+player_data_tm <- join(player_data_tm, by_team1, by = "Tm")
+
+#5
+player_data_tm$VDRBI <- player_data_tm$Sum1*(player_data_tm$DRB/player_data_tm$TDRB)
+
+
+player_data_tm$PROD_DREBADJ <- ((player_data_tm$Sum1 - player_data_tm$VDRBI) + player_data_tm$PROD)/player_data_tm$MP*48
+
+```
+
+
+
+
+
+```{r}
+#Step Three: Adjust for Assists
+#1
+TAPM <- with(player_data_tm, (TAST - AST)/(TMP-MP))
+#2
+TAPM2 <- TAPM*0.725 
+#3
+TAPM3 <- TAPM2*2
+#4
+TAPM4 <- TAPM3*player_data_tm$FGA
+#5
+player_data_tm$TAPM5 <- TAPM4*0.032586
+by_team1 <- aggregate(player_data_tm$TAPM5, by=list(player_data_tm$Tm), FUN=sum)
+colnames(by_team1) <- c("Tm", "ASTSum1")
+#6
+player_data_tm <- join(player_data_tm, by_team1, by = "Tm")
+#fin
+player_data_tm$AST_FIN <- player_data_tm$ASTSum1*(player_data_tm$AST/player_data_tm$TAST)
+```
+
+
+
+
+```{r}
+#Step four: Incorporate team defense and calculate adjusted P48
+player_data_tm$TDA <- with(player_data_tm, ((O3P*-0.064 + O2P*-0.031+OTOV*0.033+TTOV*-0.034+TRB*0.033-TBLK*0.200)/TMP)*48)
+
+
+
+player_data_tm$adjp48 <- player_data_tm$P48+ (mean(player_data_tm$TDA) - player_data_tm$TDA)
+
+```
+
+
+
+
+
+```{r}
+#Skip to step 6
+player_data_tm$relAdjP48 <- player_data_tm$adjp48 - mean(player_data_tm$adjp48, by=list(player_data_tm$Tm), FUN=mean)
+player_data_tm$WP48 <- player_data_tm$relAdjP48 + 0.099
+
+
+player_data_tm$WP <- round(player_data_tm$WP48/48*player_data_tm$MP, 4)
+
+#player_data_tm[,c("Player", "WP")]
+
+
+#create data frame of focused players. Output win share, win score, and wins produced. 
+
+```
+
+#Marginal Revenue Product
+
+The quantity 'Marginal Revenue Product' (MRP) is defined as the extra revenue created by an additional worker. You can measure or estimate what the output would be given a number of workers and multiply that by the marginal revenue per worker to get the marginal revenue that would come from that output. In sports, particularly the NBA, we assume that the output of a firm or team is wins. "We assume that teams produce wins using players as inputs." (Cite) The value of a player can be written as 
+
+$$
+MRP_{ij} = MR_{win} \times \Delta wins_{ij}
+$$
+
+where $MRP_{ij}$ is the marginal revenue product of player $i$ when he plays for team $j$, $MR_{win}$ is the value of an additional win to a team, and $\Delta wins_{ij}$. To calculate each teams cost per win, I am using ending 2018 numbers available in an article titled 'The NBA's Chumps and Wise Ones'.
+
+
+```{r}
+player_data_tm <- join(player_data_tm, team_cost_data, by="Tm")
+player_data_tm$MRP <-  player_data_tm$WP*player_data_tm$CPW
+player_agg <- aggregate(player_data_tm$MRP, by=list(player_data_tm$Player), FUN=sum)
+colnames(player_agg) <- c('Player', 'MRP')
+player_data_slry <- join(player_salary_data[,c('Player', 'X2018.19')], player_agg, by = "Player")
+cols <- c("Player", "MRP", "X2018.19")
+df <-  na.omit(player_data_slry[order(-player_data_slry$MRP),cols])
+df <- df[1:20,]
+df$Player <- lapply(df$Player, function(x) {sub("\\\\.*","",x)})
+df$MRP <- dollar(df$MRP)
+#df$X2018.19 <- dollar(df$X2018.19)
+
+kable(x=df, align=c('l','c'), row.names = FALSE, col.names = c('Player', 'MRP', 'Salary'), caption="\\label{wa_corr}MRP Top 20")  %>%
+      kable_styling(latex_options = c("striped","hold_position"),
+                    full_width = FALSE,font_size = 12)
+
+```
+Largest & smallest differences in MRP and salary, aka most over/underpaid
+```{r}
+
+
+```
+
+
+```{r}
+
+
+```
+
+
+Sources:
+
+http://wagesofwins.com/how-to-calculate-wins-produced/
+
+https://dberri.wordpress.com/2006/05/21/simple-models-of-player-performance/
+
+https://www.basketball-reference.com/leagues/NBA_2019_advanced.html
+
+https://dberri.wordpress.com/2006/05/26/wins-produced-vs-win-score/
+
+
+
+
+
+

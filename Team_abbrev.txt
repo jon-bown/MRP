@@ -1,0 +1,32 @@
+
+Team, Tm
+Indiana Pacers,IND
+Miami Heat,MIA
+Memphis Grizzlies,MEM
+Utah Jazz,UTA
+Orlando Magic,ORL
+Denver Nuggets,DEN
+Detroit Pistons,DET
+Boston Celtics,BOS
+Toronto Raptors,TOR
+Houston Rockets,HOU
+Milwaukee Bucks,MIL
+San Antonio Spurs,SAS
+Dallas Mavericks,DAL
+Portland Trail Blazers,POR
+Oklahoma City Thunder,OKC
+Golden State Warriors,GSW
+Charlotte Hornets,CHO
+Brooklyn Nets,BRK
+Philadelphia 76ers,PHI
+Chicago Bulls,CHI
+Los Angeles Lakers,LAL
+New York Knicks,NYK
+Minnesota Timberwolves,MIN
+Cleveland Cavaliers,CLE
+Los Angeles Clippers,LAC
+Sacramento Kings,SAC
+New Orleans Pelicans,NOP
+Phoenix Suns,PHO
+Washington Wizards,WAS
+Atlanta Hawks,ATL

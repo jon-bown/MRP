@@ -1,0 +1,32 @@
+
+Team, Tm, CPW
+Indiana Pacers,IND,1888596
+Miami Heat,MIA,3051689
+Memphis Grizzlies,MEM,5012423
+Utah Jazz,UTA,2069487
+Orlando Magic,ORL,3878881
+Denver Nuggets,DEN,2345415
+Detroit Pistons,DET,3079131
+Boston Celtics,BOS,1743699
+Toronto Raptors,TOR,1942915
+Houston Rockets,HOU,1587602
+Milwaukee Bucks,MIL,2626203
+San Antonio Spurs,SAS,2525077
+Dallas Mavericks,DAL,3579354
+Portland Trail Blazers,POR,2534232
+Oklahoma City Thunder,OKC,2740695
+Golden State Warriors,GSW,1992679
+Charlotte Hornets,CHO,3256338
+Brooklyn Nets,BRK,3429992
+Philadelphia 76ers,PHI,1799898
+Chicago Bulls,CHI,3312039
+Los Angeles Lakers,LAL,3010156
+New York Knicks,NYK,3719152
+Minnesota Timberwolves,MIN,2553664
+Cleveland Cavaliers,CLE,2215528
+Los Angeles Clippers,LAC,2831123
+Sacramento Kings,SAC,3541760
+New Orleans Pelicans,NOP,2260372
+Phoenix Suns,PHO,4515159
+Washington Wizards,WAS,2822269
+Atlanta Hawks,ATL,4183917
