@@ -2,7 +2,7 @@
 title: "NBA Player Net Output Value"
 subtitle: 'Comparing Win Share, Win Score, Wins Produced, and RPM Wins to estimate value of player production'
 author: "Jonathan Bown"
-date: "June 13, 2019"
+date: "July 5, 2019"
 output: 
   html_document:
     toc: true
