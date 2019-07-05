@@ -1,1 +1,0 @@
-Marginal Revenue Product Article for Website
