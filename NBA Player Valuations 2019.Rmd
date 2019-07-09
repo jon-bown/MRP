@@ -63,7 +63,6 @@ library(here)
 library(stargazer)
 library(readxl)
 library(scales)
-library(here)
 ```
 
 #Marginal Revenue Product
@@ -72,7 +71,7 @@ The quantity 'Marginal Revenue Product' (MRP) is defined as the market value gen
 
 "For example, a farmer wants to know whether to purchase another specialized tractor to seed and harvest wheat. If the extra tractor can eventually produce 3,000 additional bushels of wheat (the MPP), and each additional bushel sells at the market for \$5 (price of the product or marginal revenue), the MRP of the tractor is \$15,000."
 
-In sports economics, one additional unit of output is one additional win. You can measure or estimate what this value would be for a given team by multiplying the value of one additional win by the number of wins a player genarates. More techically MRP can be written as 
+In sports economics, one additional unit of output is one additional win. You can measure or estimate what this value would be for a given team by multiplying the value of one additional win by the number of wins a player generates. More technically MRP can be written as 
 
 $$
 MRP_{ij} = MR_{win_j} \times \Delta wins_{ij}
@@ -289,7 +288,7 @@ The rankings show that these numbers are more interpretable than Win Score and e
 
 #RPM Wins
 
-Originally developed by ESPN, RPM Wins or Real Plus-Minus Wins provides an estimate of the number of wins each player has contributed to his team's win total on the season. This metric takes into account the players Real Plus-Minus which is the point differential when the player is on/off the court and the number of possesions played. 
+Originally developed by ESPN, RPM Wins or Real Plus-Minus Wins provides an estimate of the number of wins each player has contributed to his team's win total on the season. This metric takes into account the players Real Plus-Minus which is the point differential when the player is on/off the court and the number of possessions played. 
 
 
 ```{r}
@@ -330,7 +329,7 @@ player_data_slry <- join(player_salary_data[,c('Player', 'X2018.19')], player_ag
 
 ```
 
-The ranking shows a mix of different players compared to Win Share. For example Lebron James doesn't even make the top 20 for Win Share but has a reasonable number for RPM Wins. This ranking seems more realistic to me and the consensus accross analysts seems to indicate a bias more towards RPM Wins than Win Share. Of course the argument has been made in many articles that these advanced stats are somewhat meaningless given the fact that we are crediting wins on an individual basis rather than to the entire team. However, for the sake of this analysis I am going to ignore all this.
+The ranking shows a mix of different players compared to Win Share. For example Lebron James doesn't even make the top 20 for Win Share but has a reasonable number for RPM Wins. This ranking seems more realistic to me and the consensus across analysts seems to indicate a bias more towards RPM Wins than Win Share. Of course the argument has been made in many articles that these advanced stats are somewhat meaningless given the fact that we are crediting wins on an individual basis rather than to the entire team. However, for the sake of this analysis I am going to ignore all this.
 
 
 #Win Metric Comparison
@@ -398,7 +397,7 @@ kable(x=df[,cols], align=c('l','c'), row.names = FALSE, col.names = c('Player', 
 w <- wo+df$diff1
 ```
 
-When we add back Conley's production to the Jazz we get `r dollar(w)`. Win Share shows that the Jazz lost money on the current output of Conley but not by much. But keep in mind this is relative to the performance of Mephis last season which was only 33 wins. This is still near break even especially because the Jazz [expect](https://www.deseretnews.com/article/900075833/what-would-a-mike-conley-trade-mean-for-the-utah-jazz-moving-forward.html "What the trade means for Jazz") Conley to continue to improve and be a central contributor to team performance. 
+When we add back Conley's production to the Jazz we get `r dollar(w)`. Win Share shows that the Jazz lost money on the current output of Conley but not by much. But keep in mind this is relative to the performance of Memphis last season which was only 33 wins. This is still near break even especially because the Jazz [expect](https://www.deseretnews.com/article/900075833/what-would-a-mike-conley-trade-mean-for-the-utah-jazz-moving-forward.html "What the trade means for Jazz") Conley to continue to improve and be a central contributor to team performance. 
 
 ##Utah Jazz Wins Produced NOV
 
@@ -457,7 +456,7 @@ kable(x=df[,cols], align=c('l','c'), row.names = FALSE, col.names = c('Player', 
 w <- wo+df$diff1
 ```
 
-When we add back Conley's production to the Jazz we get `r dollar(w)`. Wins Produced is showing that the Jazz are lost almost 28 million on this trade. I'm skeptical of this because this is drasitically underestimating Conley's output relative to his salary. It seems unreasonable that the Jazz would lose 28 million from a trade. 
+When we add back Conley's production to the Jazz we get `r dollar(w)`. Wins Produced is showing that the Jazz are lost almost 28 million on this trade. I'm skeptical of this because this is drastically underestimating Conley's output relative to his salary. It seems unreasonable that the Jazz would lose 28 million from a trade. 
 
 ##Utah Jazz RPM Wins NOV
 
@@ -610,7 +609,7 @@ df$MRP <- dollar(df$MRP)
 df$Salary <- lapply(df$X2018.19, function(x) {sub("\\$","",x)})
 df$Salary <- as.numeric(df$Salary)
 df$Salary <- dollar(df$Salary)
-df$diff <- dollar(abs(as.numeric(gsub('[$,]', '', df$MRP))) - abs(as.numeric(gsub('[$,]', '', df$Salary))))
+df$diff <- dollar(as.numeric(gsub('[$,]', '', df$MRP)) - as.numeric(gsub('[$,]', '', df$Salary)))
 cols <- c("Player", "MRP", "Salary", "diff")
 kable(x=df[,cols], align=c('l','c'), row.names = FALSE, col.names = c('Player', 'MRP', 'Salary', "NOV"), caption="\\label{wa_corr}MRP Bottom 20")  %>%
       kable_styling(latex_options = c("striped","hold_position"),
@@ -619,12 +618,20 @@ kable(x=df[,cols], align=c('l','c'), row.names = FALSE, col.names = c('Player', 
 ```
 
 ```{r}
+cols <- c("Player", "MRP", "X2018.19")
+df <-  na.omit(player_data_slry[order(-player_data_slry$MRP),cols])
+df$Player <- lapply(df$Player, function(x) {sub("\\\\.*","",x)})
+df$MRP <- dollar(df$MRP)
+df$Salary <- lapply(df$X2018.19, function(x) {sub("\\$","",x)})
+df$Salary <- as.numeric(df$Salary)
+df$Salary <- dollar(df$Salary)
+df$diff <- dollar(as.numeric(gsub('[$,]', '', df$MRP)) - as.numeric(gsub('[$,]', '', df$Salary)))
 df$diff <- as.numeric(gsub('[$,]', '', df$MRP)) - as.numeric(gsub('[$,]', '', df$Salary))
 cols <- c("Player", "MRP", "Salary", "diff")
 df <- df[order(-df$diff),cols]
 df$diff <- dollar(df$diff)
 cols <- c("Player", "MRP", "Salary", "diff")
-kable(x=df[,cols], align=c('l','c'), row.names = FALSE, col.names = c('Player', 'MRP', 'Salary', "NOV"), caption="\\label{wa_corr}Most Undervalued Players")  %>%
+kable(x=df[1:20,cols], align=c('l','c'), row.names = FALSE, col.names = c('Player', 'MRP', 'Salary', "NOV"), caption="\\label{wa_corr}Most Undervalued Players")  %>%
       kable_styling(latex_options = c("striped","hold_position"),
                     full_width = FALSE,font_size = 12, bootstrap_options = c("striped", "hover"))
 
@@ -652,9 +659,9 @@ kable(x=df[1:20,cols], align=c('l','c'), row.names = FALSE, col.names = c('Playe
 
 
 
-Keep in mind that these MRP numbers correspond to a given player on a given team. If the team isn't winning very much, its hard for a star player to have a high MRP because Win Share and RPM Wins will be lower for all players on that team. Thus a star player could appear over-valued, but only when playing for that team. The numbers could change drasitically if they move to a more productive team. 
+Keep in mind that these MRP numbers correspond to a given player on a given team. If the team isn't winning very much, its hard for a star player to have a high MRP because Win Share and RPM Wins will be lower for all players on that team. Thus a star player could appear over-valued, but only when playing for that team. The numbers could change drastically if they move to a more productive team. 
 
-Overall using MRP with RPM Wins to get Net Output Value is simple and it seems to work well given the examples with the Jazz and the recent trades and acquisitions. I also found that Win Share can be used in place of RPM Wins but it seems to overestimate what both of these metrics are trying to quantify. I also found that Win Score and Wins Produced aren't realistic for calculating MRP. But it is important to remember that these quantities are heavily debated and there is no silver bullet to measuring the value of player output to a team. I look forward to evaluating this again after next season to see what has changed and if there are any insights by comparing results. I also want to explore comparing the MRP of each team, although it is hard to compare team to team by dollar amounts rather than win-loss record and regular season stats. There are a lot of ideas that came out of this analysis and I look forward to more reasearch. Go Jazz!
+Overall using MRP with RPM Wins to get Net Output Value is simple and it seems to work well given the examples with the Jazz and the recent trades and acquisitions. I also found that Win Share can be used in place of RPM Wins but it seems to overestimate what both of these metrics are trying to quantify. I also found that Win Score and Wins Produced aren't realistic for calculating MRP. But it is important to remember that these quantities are heavily debated and there is no silver bullet to measuring the value of player output to a team. I look forward to evaluating this again after next season to see what has changed and if there are any insights by comparing results. I also want to explore comparing the MRP of each team, although it is hard to compare team to team by dollar amounts rather than win-loss record and regular season stats. There are a lot of ideas that came out of this analysis and I look forward to more research. Go Jazz!
 
 
 
