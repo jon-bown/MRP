@@ -206,7 +206,7 @@ $(document).ready(function () {
 <h4 class="date">July 5, 2019</h4>
 <div class="abstract">
 <p class="abstract">Abstract</p>
-<p>The goal of this analysis is to better understand the similarities and differences between four NBA player metrics: Win Score, Wins Produced, Win Share, and RPM Wins in the context of calculating player output or player value using the economic concept of Marginal Revenue Product. To compare these four metrics I will focus on the Utah Jazz and their trade decisions these last few weeks. My hypothesis is that this method will be able to explain some decision making recently by the Utah Jazz. I want to find which metric, if any, gives a reasonable quanitification of player value. Once a reasonable metric is determined we can test it further by evaluating which players in the league are the most over/under paid by comparing the value of their output to their salary.</p>
+<p>The goal of this analysis is to better understand the similarities and differences between four NBA player metrics: Win Score, Wins Produced, Win Share, and RPM Wins in the context of calculating player output or player value using the economic concept of Marginal Revenue Product. To compare these four metrics I will focus on the Utah Jazz and their trade decisions these last few weeks. My hypothesis is that this method will be able to explain some decision making recently by the Utah Jazz. I want to find which metric, if any, gives a reasonable quanitification of player value. Once a reasonable metric is determined, it can be tested further by evaluating which players in the league are the most over/under paid by comparing the value of their output to their salary.</p>
 </div>
 
 </div>
@@ -219,13 +219,13 @@ $(document).ready(function () {
 <li><a href="#win-score">Win Score</a></li>
 <li><a href="#wins-produced">Wins Produced</a></li>
 <li><a href="#rpm-wins">RPM Wins</a></li>
-<li><a href="#win-metric-comparison">Win Metric Comparison</a><ul>
-<li><a href="#utah-jazz-win-share-nov">Utah Jazz Win Share NOV</a></li>
-<li><a href="#utah-jazz-wins-produced-nov">Utah Jazz Wins Produced NOV</a></li>
-<li><a href="#utah-jazz-rpm-wins-nov">Utah Jazz RPM Wins NOV</a></li>
+<li><a href="#net-output-value">Net Output Value</a><ul>
+<li><a href="#utah-jazz-win-share-nov">Utah Jazz Win Share <span class="math inline">\(NOV\)</span></a></li>
+<li><a href="#utah-jazz-wins-produced-nov">Utah Jazz Wins Produced <span class="math inline">\(NOV\)</span></a></li>
+<li><a href="#utah-jazz-rpm-wins-nov">Utah Jazz RPM Wins <span class="math inline">\(NOV\)</span></a></li>
 </ul></li>
-<li><a href="#utah-jazz-new-roster-nov">Utah Jazz New Roster NOV</a></li>
-<li><a href="#nba-player-nov">NBA Player NOV</a></li>
+<li><a href="#utah-jazz-new-roster-nov">Utah Jazz New Roster <span class="math inline">\(NOV\)</span></a></li>
+<li><a href="#nba-player-nov">NBA Player <span class="math inline">\(NOV\)</span></a></li>
 <li><a href="#sources">Sources</a></li>
 </ul>
 </div>
@@ -275,7 +275,7 @@ caption {
 <p><span class="math display">\[
 MRP_{ij} = MR_{win_j} \times \Delta wins_{ij}
 \]</span></p>
-<p>where <span class="math inline">\(MRP_{ij}\)</span> is the marginal revenue product of player <span class="math inline">\(i\)</span> when he plays for team <span class="math inline">\(j\)</span>, <span class="math inline">\(MR_{win_j}\)</span> is the value of an additional win to team <span class="math inline">\(j\)</span>, and <span class="math inline">\(\Delta wins_{ij}\)</span> is the change added wins for player <span class="math inline">\(i\)</span> on team <span class="math inline">\(j\)</span>. The hardest quantity to measure here is the change in wins for a given player. There are several widely used metrics for this that we will explore to find the most reasonable output for evaluating players and their value relative to their cost.</p>
+<p>where <span class="math inline">\(MRP_{ij}\)</span> is the marginal revenue product of player <span class="math inline">\(i\)</span> when he plays for team <span class="math inline">\(j\)</span>, <span class="math inline">\(MR_{win_j}\)</span> is the value of an additional win to team <span class="math inline">\(j\)</span>, and <span class="math inline">\(\Delta wins_{ij}\)</span> is the change added wins for player <span class="math inline">\(i\)</span> on team <span class="math inline">\(j\)</span>. The hardest quantity to measure here is the change in wins for a given player. There are several widely used metrics for wins that I explored to find the most reasonable output for evaluating players and their value relative to their cost based on this idea.</p>
 </div>
 <div id="value-of-a-win" class="section level1">
 <h1>Value of a win</h1>
@@ -537,7 +537,7 @@ $1,587,602
 </tr>
 </tbody>
 </table>
-<p>For our purposes we are going to assume that each team values a win equally to give an adequate opportunity to compare win contribution metrics. An article from <a href="https://fivethirtyeight.com/features/forget-giannis-pascal-siakam-is-our-mvp/" title="Which NBA Player Literally Gives His Team The Most Value">FiveThirtyEight</a> estimating the surplus value of players claimed this number was $2,949,908.82 per team. Based on the table above we are seeing that this would likely fall close to the average value of a win.</p>
+<p>For the purposes of this analysis I am going to assume that each team values a win equally to give an adequate opportunity to compare win contribution metrics. An article from <a href="https://fivethirtyeight.com/features/forget-giannis-pascal-siakam-is-our-mvp/" title="Which NBA Player Literally Gives His Team The Most Value">FiveThirtyEight</a> estimating the surplus value of players claimed this number was $2,949,908.82 per team. The table above shows that this number would likely fall close to the average value of a win.</p>
 </div>
 <div id="win-share" class="section level1">
 <h1>Win Share</h1>
@@ -1267,17 +1267,19 @@ Kemba Walker
 </tr>
 </tbody>
 </table>
-<p>The ranking shows a mix of different players compared to Win Share. For example Lebron James doesn’t even make the top 20 for Win Share but has a reasonable number for RPM Wins. This ranking seems more realistic to me and the consensus across analysts seems to indicate a bias more towards RPM Wins than Win Share. Of course the argument has been made in many articles that these advanced stats are somewhat meaningless given the fact that we are crediting wins on an individual basis rather than to the entire team. However, for the sake of this analysis I am going to ignore all this.</p>
+<p>The ranking shows a mix of different players compared to Win Share. For example Lebron James doesn’t even make the top 20 for Win Share but has a reasonable number for RPM Wins. This ranking seems more realistic to me and the consensus across analysts seems to indicate a bias more towards RPM Wins than Win Share. Of course the argument has been made in many articles that these advanced stats are somewhat meaningless given the fact that each is crediting wins to an individual rather than to the entire team. I am aware of these criticisms but would like to ignore those at this point.</p>
 </div>
-<div id="win-metric-comparison" class="section level1">
-<h1>Win Metric Comparison</h1>
-<p>One simple test to evaluate if this method works and which quantity of wins is more accurate/reasonable is to check if a player-for-player trade produces a near break-even value. The Utah Jazz recently traded Jae Crowder, Kyle Korver, and Grayson Allen to the Memphis Grizzlies for Mike Conley. This trade only makes sense for the Jazz if they expect Conley to replace the output of the other three based on his past performance and hopefully exceed that in the near future. We can simply compare the total MRP before and after the trade to not only compare which measure of wins gives us equal trade value but also show if the Jazz are getting a good deal.</p>
-<p>In each section below we calculate MRP for each player using the chosen metric for wins and compare that to the player salary. To calculate the value a player is producing we can simply take the difference between MRP and player salary to show if the player is worth what they are being paid. We will simply call this number ‘Net Output Value’ or ‘NOV’ for short. If a player is producing more value than they are being paid NOV is positive otherwise the team is losing money on the player and NOV will come up negative. First we show what these values are before the trade for each player, then evaluate what the total value of the team is before and after the Conley trade.</p>
+<div id="net-output-value" class="section level1">
+<h1>Net Output Value</h1>
+<p>One simple test to evaluate if this method works and which quantity of wins is more accurate/reasonable is to check if a player-for-player trade produces a near break-even value. The Utah Jazz recently traded Jae Crowder, Kyle Korver, and Grayson Allen to the Memphis Grizzlies for Mike Conley. This trade only makes sense for the Jazz if they expect Conley to replace the output of the other three based on his past performance and hopefully exceed that in the near future. One can simply compare the total MRP before and after the trade to not only compare which measure of wins gives an equal trade value but also show if the Jazz are getting a good deal.</p>
+<p>In each section below the MRP is calculated for each player using the chosen metric for wins and compare that to the player salary. To calculate the value a player is producing we can simply take the difference between MRP and player salary to show if the player is worth what they are being paid. We will simply call this number ‘Net Output Value’ or ‘NOV’ for short. More formally the <span class="math inline">\(NOV\)</span> for player <span class="math inline">\(i\)</span> on team <span class="math inline">\(j\)</span> is</p>
+<p><span class="math display">\[NOV_{ij} = MRP_{ij} - \text{Salary}_{ij}.\]</span></p>
+<p>If a player is producing more value than they are being paid <span class="math inline">\(NOV\)</span> is positive otherwise the team is losing money on the player and <span class="math inline">\(NOV\)</span> will come up negative. First we show what these values are before the trade for each player, then evaluate what the total value of the team is before and after the Conley trade.</p>
 <div id="utah-jazz-win-share-nov" class="section level2">
-<h2>Utah Jazz Win Share NOV</h2>
+<h2>Utah Jazz Win Share <span class="math inline">\(NOV\)</span></h2>
 <table class="table table-striped table-hover" style="font-size: 12px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-Utah Jazz End Of Season 2019
+Utah Jazz Roster as of May 2019
 </caption>
 <thead>
 <tr>
@@ -1508,7 +1510,7 @@ $-6,650,091
 </tr>
 </tbody>
 </table>
-Before the Trade the total NOV of the Utah Jazz players is $44,086,125. If we remove Crowder, Korver, and Allen the Jazz total NOV becomes $49,345,761.
+Before the trade the total <span class="math inline">\(NOV\)</span> of the Jazz players is $44,086,125. If Crowder, Korver, and Allen are removed the Jazz total <span class="math inline">\(NOV\)</span> becomes $49,345,761.
 <table class="table table-striped table-hover" style="font-size: 12px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 </caption>
@@ -1545,10 +1547,10 @@ $-6,921,845
 </tr>
 </tbody>
 </table>
-<p>When we add back Conley’s production to the Jazz we get $42,423,916. Win Share shows that the Jazz lost money on the current output of Conley but not by much. But keep in mind this is relative to the performance of Memphis last season which was only 33 wins. This is still near break even especially because the Jazz <a href="https://www.deseretnews.com/article/900075833/what-would-a-mike-conley-trade-mean-for-the-utah-jazz-moving-forward.html" title="What the trade means for Jazz">expect</a> Conley to continue to improve and be a central contributor to team performance.</p>
+<p>When Conley’s production is added to the Jazz, <span class="math inline">\(NOV\)</span> adds up to $42,423,916. Win Share shows that the Jazz lost money on the current output of Conley but not by much. But keep in mind this is relative to the performance of Memphis last season which was only 33 wins. This is still near break even especially because the Jazz <a href="https://www.deseretnews.com/article/900075833/what-would-a-mike-conley-trade-mean-for-the-utah-jazz-moving-forward.html" title="What the trade means for Jazz">expect</a> Conley to continue to improve and be a central contributor to team performance.</p>
 </div>
 <div id="utah-jazz-wins-produced-nov" class="section level2">
-<h2>Utah Jazz Wins Produced NOV</h2>
+<h2>Utah Jazz Wins Produced <span class="math inline">\(NOV\)</span></h2>
 <table class="table table-striped table-hover" style="font-size: 12px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 Utah Jazz Player NOV WP
@@ -1782,7 +1784,7 @@ $-24,657,781
 </tr>
 </tbody>
 </table>
-Before the Trade the MRP of the players is $51,167,971. If we remove Korver, Allen, and Crowder the Jazz total value of MRP becomes $52,828,129.
+Before the trade the total <span class="math inline">\(NOV\)</span> of the Jazz is $51,167,971. If Crowder, Korver, and Allen are removed the Jazz total <span class="math inline">\(NOV\)</span> becomes $52,828,129.
 <table class="table table-striped table-hover" style="font-size: 12px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 </caption>
@@ -1819,10 +1821,10 @@ $-27,775,636
 </tr>
 </tbody>
 </table>
-<p>When we add back Conley’s production to the Jazz we get $25,052,493. Wins Produced is showing that the Jazz are lost almost 28 million on this trade. I’m skeptical of this because this is drastically underestimating Conley’s output relative to his salary. It seems unreasonable that the Jazz would lose 28 million from a trade.</p>
+<p>When Conley’s production is added to the Jazz the total <span class="math inline">\(NOV\)</span> becomes $25,052,493. Wins Produced is showing that the Jazz are lost almost 28 million on this trade. I’m skeptical of this number because this is drastically underestimating Conley’s output relative to his salary. It seems unreasonable that the Jazz would lose 28 million from a trade.</p>
 </div>
 <div id="utah-jazz-rpm-wins-nov" class="section level2">
-<h2>Utah Jazz RPM Wins NOV</h2>
+<h2>Utah Jazz RPM Wins <span class="math inline">\(NOV\)</span></h2>
 <table class="table table-striped table-hover" style="font-size: 12px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 Utah Jazz Player NOV RPM
@@ -2056,7 +2058,7 @@ $-8,331,539
 </tr>
 </tbody>
 </table>
-Before the Trade the MRP of the players is $57,301,716. If we remove Korver, Allen, and Crowder the Jazz total value of MRP becomes $59,788,438.
+Before the Trade the <span class="math inline">\(NOV\)</span> of all the players is $57,301,716. If Crowder, Korver, and Allen are removed the Jazz total <span class="math inline">\(NOV\)</span> becomes $59,788,438.
 <table class="table table-striped table-hover" style="font-size: 12px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 </caption>
@@ -2093,15 +2095,15 @@ $-2,791,973
 </tr>
 </tbody>
 </table>
-<p>When we add back Conley’s production to the Jazz we get the total value of productivity less salary to be $56,996,465. Using RPM Wins gets the closest value to break even for this trade of the three other methods. This is a good indication that RPM Wins might be the best of the others to incorporate into the calculation of MRP.</p>
+<p>When Conley’s production is added to the Jazz the total <span class="math inline">\(NOV\)</span> becomes $56,996,465. Using RPM Wins in place of the other metrics produces the closest value to break even for this trade of the three other methods. This is a good indication that RPM Wins might be the best of the others to incorporate into the calculation of MRP.</p>
 </div>
 </div>
 <div id="utah-jazz-new-roster-nov" class="section level1">
-<h1>Utah Jazz New Roster NOV</h1>
-<p>To further evaluate this what the results of using MRP together with RPM Wins to get player value we can also look at the recent acquisitions and trades the Jazz have made. The Jazz added Bojan Bogdanovic, Ed Davis, Jeff Green, and Emmanuel Mudiay. The Jazz also traded Derrick Favors for some draft picks. I am ignoring the new acquisitions during the draft because I don’t have the necessary data. The table below shows the new roster ordered by NOV.</p>
+<h1>Utah Jazz New Roster <span class="math inline">\(NOV\)</span></h1>
+<p>To further evaluate this what the results of using MRP together with RPM Wins to get player value I can also look at the recent acquisitions and trades the Jazz have made. The Jazz added Bojan Bogdanovic, Ed Davis, Jeff Green, and Emmanuel Mudiay. The Jazz also traded Derrick Favors for some draft picks. I am ignoring the new acquisitions during the draft because I don’t have the necessary data. The table below shows the new roster ordered by <span class="math inline">\(NOV\)</span>.</p>
 <table class="table table-striped table-hover" style="font-size: 12px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-Utah Jazz Player NOV WS
+Utah Jazz Roster July 2019
 </caption>
 <thead>
 <tr>
@@ -2220,20 +2222,6 @@ $5,488,506
 </tr>
 <tr>
 <td style="text-align:left;">
-Ricky Rubio
-</td>
-<td style="text-align:center;">
-$16,430,992
-</td>
-<td style="text-align:left;">
-$14,975,000
-</td>
-<td style="text-align:center;">
-$1,455,992
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Raul Neto
 </td>
 <td style="text-align:center;">
@@ -2346,11 +2334,11 @@ $-8,331,539
 </tr>
 </tbody>
 </table>
-<p>When we add Conley, Davis, Bogdanovic, Green, and Mudiay we get an NOV of $74,028,296. This would indicate that the Jazz would be much more productive next season with these new players supposedly producing almost 20 million more value compared to the end of regular season. You can also see in the ranking of NOV that the top five almost line up with the starting five for next season with the exception of Mike Conley who I believe is under valued and will rise in the rankings throughout his first season with the Jazz as he gets more opportunity to play and as the Jazz win games.</p>
+<p>When Conley, Davis, Bogdanovic, Green, and Mudiay are added to the roster the total <span class="math inline">\(NOV\)</span> of $72,572,304. This would indicate that the Jazz would be much more productive next season with these new players supposedly producing almost 20 million more value compared to the end of regular season. You can also see in the ranking of <span class="math inline">\(NOV\)</span> that the top five almost line up with the starting five for next season with the exception of Mike Conley who I believe is under valued and will rise in the rankings throughout his first season with the Jazz as he gets more opportunity to play and as the Jazz win games.</p>
 </div>
 <div id="nba-player-nov" class="section level1">
-<h1>NBA Player NOV</h1>
-<p>Now that we have a realistic way to compare player values we can apply it to the rest of the NBA. Below I show the players with the highest value of output (MRP) as well as the highest and lowest NOV which correspond to being the most over/under valued players.</p>
+<h1>NBA Player <span class="math inline">\(NOV\)</span></h1>
+<p>Given that there is now a realistic way to compare player values using RPM Wins, it can be applied it to the rest of the NBA. Below I show the players with the highest value of output (MRP) as well as the highest and lowest <span class="math inline">\(NOV\)</span> which correspond to being the most over/under valued players.</p>
 <table class="table table-striped table-hover" style="font-size: 12px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 MRP Top 20
