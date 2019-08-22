@@ -374,6 +374,8 @@ wo <- sum(df$diff1)-df[which(df$Player == "Kyle Korver"), 'diff1']+ df[which(df$
 ```
 
 Before the trade the total $NOV$ of the Jazz players is `r dollar(sum(df$diff1))`. If Crowder, Korver, and Allen are removed the Jazz total $NOV$ becomes `r dollar(wo)`. 
+
+
 ```{r}
 player_data_slry <- join(player_salary_data, player_data_tm, by = "Player")
 player_data_co <- player_data_slry[which(player_data_slry$Player == 'Mike Conley\\conlemi01'),]
@@ -433,6 +435,8 @@ wo <- sum(df$diff1)-df[which(df$Player == "Kyle Korver"), 'diff1']+ df[which(df$
 ```
 
 Before the trade the total $NOV$ of the Jazz is `r dollar(sum(df$diff1))`. If Crowder, Korver, and Allen are removed the Jazz total $NOV$ becomes `r dollar(wo)`. 
+
+
 ```{r}
 player_data_slry <- join(player_salary_data, player_data_tm, by = "Player")
 player_data_co <- player_data_slry[which(player_data_slry$Player == 'Mike Conley\\conlemi01'),]
@@ -492,6 +496,8 @@ wo <- sum(df$diff1)-df[which(df$Player == "Kyle Korver"), 'diff1']+ df[which(df$
 ```
 
 Before the Trade the $NOV$ of all the players is `r dollar(sum(df$diff1))`. If Crowder, Korver, and Allen are removed the Jazz total $NOV$ becomes `r dollar(wo)`. 
+
+
 ```{r}
 player_data_co <- player_data_slry[which(player_data_slry$Player == 'Mike Conley'),]
 player_data_co$after <-  player_data_co$WINS*player_data_co[1,'CPW']
@@ -564,7 +570,7 @@ profit <- produce - cost
 
 ```
 
-When Conley, Davis, Bogdanovic, Green, and Mudiay are added to the roster the total $NOV$ of `r dollar(wo)`. This would indicate that the Jazz would be much more productive next season with these new players supposedly producing almost 20 million more value compared to the end of regular season. You can also see in the ranking of $NOV$ that the top five almost line up with the starting five for next season with the exception of Mike Conley who I believe is under valued and will rise in the rankings throughout his first season with the Jazz as he gets more opportunity to play and as the Jazz win games. 
+When Conley, Davis, Bogdanovic, Green, and Mudiay are added to the roster the total $NOV$ becomes `r dollar(wo)`. This would indicate that the Jazz would be much more productive next season with these new players supposedly producing almost 20 million more value compared to the end of regular season. You can also see in the ranking of $NOV$ that the top five almost line up with the starting five for next season with the exception of Mike Conley who I believe is under valued and will rise in the rankings throughout his first season with the Jazz as he gets more opportunity to play and as the Jazz win games. 
 
 
 #NBA Player $NOV$
@@ -615,7 +621,7 @@ df$diff <- dollar(as.numeric(gsub('[$,]', '', df$MRP)) - as.numeric(gsub('[$,]',
 cols <- c("Player", "MRP", "Salary", "diff")
 kable(x=df[,cols], align=c('l','c'), row.names = FALSE, col.names = c('Player', 'MRP', 'Salary', "NOV"), caption="\\label{wa_corr}MRP Bottom 20")  %>%
       kable_styling(latex_options = c("striped","hold_position"),
-                    full_width = FALSE,font_size = 12, bootstrap_options = c("striped", "hover"))
+                    full_width = TRUE,font_size = 12, bootstrap_options = c("striped", "hover"))
 
 ```
 

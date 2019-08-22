@@ -1,32 +1,32 @@
 
-Team, Tm, CPW
-Indiana Pacers,IND,1888596
-Miami Heat,MIA,3051689
-Memphis Grizzlies,MEM,5012423
-Utah Jazz,UTA,2069487
-Orlando Magic,ORL,3878881
-Denver Nuggets,DEN,2345415
-Detroit Pistons,DET,3079131
-Boston Celtics,BOS,1743699
-Toronto Raptors,TOR,1942915
-Houston Rockets,HOU,1587602
-Milwaukee Bucks,MIL,2626203
-San Antonio Spurs,SAS,2525077
-Dallas Mavericks,DAL,3579354
-Portland Trail Blazers,POR,2534232
-Oklahoma City Thunder,OKC,2740695
-Golden State Warriors,GSW,1992679
-Charlotte Hornets,CHO,3256338
-Brooklyn Nets,BRK,3429992
-Philadelphia 76ers,PHI,1799898
-Chicago Bulls,CHI,3312039
-Los Angeles Lakers,LAL,3010156
-New York Knicks,NYK,3719152
-Minnesota Timberwolves,MIN,2553664
-Cleveland Cavaliers,CLE,2215528
-Los Angeles Clippers,LAC,2831123
-Sacramento Kings,SAC,3541760
-New Orleans Pelicans,NOP,2260372
-Phoenix Suns,PHO,4515159
-Washington Wizards,WAS,2822269
-Atlanta Hawks,ATL,4183917
+Team, Tm, CPW, W, L
+Indiana Pacers,IND,1888596,48,34
+Miami Heat,MIA,3051689,39,43
+Memphis Grizzlies,MEM,5012423,33,49
+Utah Jazz,UTA,2069487,50,32
+Orlando Magic,ORL,3878881,42,40
+Denver Nuggets,DEN,2345415,54,28
+Detroit Pistons,DET,3079131,41,41
+Boston Celtics,BOS,1743699,49,33
+Toronto Raptors,TOR,1942915,58,24
+Houston Rockets,HOU,1587602,53,29
+Milwaukee Bucks,MIL,2626203,60,22
+San Antonio Spurs,SAS,2525077,48,34
+Dallas Mavericks,DAL,3579354,33,49
+Portland Trail Blazers,POR,2534232,53,29
+Oklahoma City Thunder,OKC,2740695,49,33
+Golden State Warriors,GSW,1992679,57,25
+Charlotte Hornets,CHO,3256338,39,43
+Brooklyn Nets,BRK,3429992,42,40
+Philadelphia 76ers,PHI,1799898,51,31
+Chicago Bulls,CHI,3312039,22,60
+Los Angeles Lakers,LAL,3010156,37,45
+New York Knicks,NYK,3719152,17,65
+Minnesota Timberwolves,MIN,2553664,36,46
+Cleveland Cavaliers,CLE,2215528,19,63
+Los Angeles Clippers,LAC,283112348,34
+Sacramento Kings,SAC,3541760,39,43
+New Orleans Pelicans,NOP,2260372,33,49
+Phoenix Suns,PHO,4515159,19,63
+Washington Wizards,WAS,2822269,32,50
+Atlanta Hawks,ATL,4183917,29,53
