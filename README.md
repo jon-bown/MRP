@@ -1,4 +1,4 @@
 # MRP
 
 
-Marginal Revenue Product NBA Project
+Evaluating Jazz player trades using the economic principle of Marginal Revenue Product.
